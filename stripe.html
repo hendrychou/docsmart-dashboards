@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DocSmart — Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #ffffff;
@@ -12,17 +12,16 @@
   --body: #64748d;
   --accent: #533afd;
   --border: #e5edf5;
-  --shadow: rgba(50,50,93,0.25);
   --sidebar-w: 240px;
-  --header-h: 64px;
+  --header-h: 56px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{
   background:var(--bg);color:var(--body);font-family:'Source Sans 3',sans-serif;
-  font-weight:400;font-size:15px;line-height:1.5;min-height:100vh;display:flex;
+  font-weight:400;font-size:14px;line-height:1.5;min-height:100vh;display:flex;
 }
 ::selection{background:rgba(83,58,253,0.15)}
-::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:#d0d9e6;border-radius:3px}
 
@@ -30,27 +29,28 @@ body{
 .sidebar{
   position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-w);
   background:#fff;border-right:1px solid var(--border);
-  display:flex;flex-direction:column;padding:24px 16px;z-index:100;
+  display:flex;flex-direction:column;padding:20px 14px;z-index:100;
 }
 .sidebar-logo{
-  display:flex;align-items:center;gap:10px;padding:0 12px 32px;
-  font-size:20px;font-weight:600;color:var(--heading);letter-spacing:-0.4px;
+  display:flex;align-items:center;gap:8px;padding:0 10px 24px;
+  font-size:18px;font-weight:600;color:var(--heading);letter-spacing:-0.4px;
 }
-.sidebar-logo svg{flex-shrink:0}
 .sidebar-nav{display:flex;flex-direction:column;gap:2px;flex:1}
 .nav-item{
-  display:flex;align-items:center;gap:12px;padding:10px 12px;
-  border-radius:6px;color:var(--body);font-size:14px;font-weight:400;
-  cursor:pointer;transition:all .15s;text-decoration:none;
+  display:flex;align-items:center;gap:10px;padding:8px 10px;
+  border-radius:6px;color:var(--body);font-size:13px;font-weight:400;
+  cursor:pointer;transition:all .1s;text-decoration:none;
 }
 .nav-item:hover{background:#f6f9fc;color:var(--heading)}
 .nav-item.active{
   background:rgba(83,58,253,0.08);color:var(--accent);font-weight:600;
-  border-left:3px solid var(--accent);border-radius:6px 0 0 6px;
 }
 .nav-item svg{flex-shrink:0;opacity:.7}
 .nav-item.active svg{opacity:1}
-.sidebar-footer{margin-top:auto;padding-top:20px;border-top:1px solid var(--border)}
+.sidebar-footer{margin-top:auto;padding-top:16px;border-top:1px solid var(--border)}
+
+/* Mobile nav */
+.mobile-nav{display:none}
 
 /* Main */
 .main{flex:1;margin-left:var(--sidebar-w);min-height:100vh}
@@ -58,98 +58,96 @@ body{
 /* Header */
 .header{
   height:var(--header-h);display:flex;align-items:center;justify-content:space-between;
-  padding:0 32px;border-bottom:1px solid var(--border);background:#fff;position:sticky;top:0;z-index:50;
+  padding:0 24px;border-bottom:1px solid var(--border);background:#fff;position:sticky;top:0;z-index:50;
 }
-.header-left{display:flex;align-items:center;gap:12px;font-size:16px;font-weight:600;color:var(--heading)}
-.header-right{display:flex;align-items:center;gap:12px}
+.header-left{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--heading)}
+.hamburger{display:none;cursor:pointer;color:var(--body);padding:4px}
+.header-right{display:flex;align-items:center;gap:10px}
 .search-box{
-  display:flex;align-items:center;gap:8px;background:#f6f9fc;border:1px solid var(--border);
-  border-radius:6px;padding:8px 14px;width:300px;font-size:14px;
+  display:flex;align-items:center;gap:6px;background:#f6f9fc;border:1px solid var(--border);
+  border-radius:6px;padding:6px 12px;width:220px;font-size:13px;
 }
 .search-box input{
-  background:none;border:none;outline:none;color:var(--heading);font-family:'Source Sans 3',sans-serif;font-size:14px;width:100%;
+  background:none;border:none;outline:none;color:var(--heading);font-family:'Source Sans 3',sans-serif;font-size:13px;width:100%;
 }
 .search-box input::placeholder{color:#94a3b8}
 .icon-btn{
-  background:#fff;border:1px solid var(--border);border-radius:6px;width:36px;height:36px;
+  background:#fff;border:1px solid var(--border);border-radius:6px;width:32px;height:32px;
   display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--body);
-  transition:all .15s;position:relative;box-shadow:0 1px 2px rgba(0,0,0,0.04);
+  transition:all .1s;position:relative;
 }
 .icon-btn:hover{border-color:#cbd5e1;color:var(--heading)}
-.notif-dot{position:absolute;top:8px;right:8px;width:7px;height:7px;border-radius:50%;background:#ef4444}
+.notif-dot{position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:#ef4444}
 .avatar{
-  width:34px;height:34px;border-radius:6px;background:var(--accent);
-  display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#fff;cursor:pointer;
+  width:30px;height:30px;border-radius:6px;background:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;cursor:pointer;
 }
 
 /* Content */
-.content{padding:28px 32px 40px}
+.content{padding:20px 24px 80px}
 
 /* Stats */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
 .stat-card{
-  background:#fff;border-radius:10px;padding:22px 20px;
-  box-shadow:0 2px 5px rgba(50,50,93,0.08),0 1px 3px rgba(50,50,93,0.02);
-  border:1px solid var(--border);display:flex;flex-direction:column;gap:4px;
+  background:#fff;border-radius:8px;padding:16px;
+  border:1px solid var(--border);display:flex;flex-direction:column;gap:3px;
 }
-.stat-label{font-size:13px;color:var(--body);font-weight:400;text-transform:uppercase;letter-spacing:0.4px}
-.stat-value{font-size:28px;font-weight:600;color:var(--heading);letter-spacing:-0.6px}
-.stat-sub{font-size:13px;color:#94a3b8;margin-top:2px}
-.stat-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:rgba(83,58,253,0.08);margin-bottom:10px}
+.stat-label{font-size:12px;color:var(--body);font-weight:400;text-transform:uppercase;letter-spacing:0.3px}
+.stat-value{font-size:24px;font-weight:600;color:var(--heading);letter-spacing:-0.5px}
+.stat-sub{font-size:12px;color:#94a3b8}
 
 /* Two column */
-.two-col{display:grid;grid-template-columns:1fr 280px;gap:24px}
+.two-col{display:grid;grid-template-columns:1fr 220px;gap:20px}
 
 /* Canvas */
 .canvas-area{}
-.canvas-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-.canvas-title{font-size:17px;font-weight:600;color:var(--heading)}
-.canvas-actions{display:flex;gap:10px}
+.canvas-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.canvas-title{font-size:15px;font-weight:600;color:var(--heading)}
+.canvas-actions{display:flex;gap:8px}
 .btn{
-  border-radius:6px;padding:8px 16px;font-size:14px;font-weight:500;
-  cursor:pointer;transition:all .15s;font-family:'Source Sans 3',sans-serif;border:none;
+  border-radius:6px;padding:6px 14px;font-size:13px;font-weight:500;
+  cursor:pointer;transition:all .1s;font-family:'Source Sans 3',sans-serif;border:1px solid var(--border);
+  background:#fff;color:var(--body);
 }
-.btn-outline{background:#fff;border:1px solid var(--border);color:var(--body);box-shadow:0 1px 2px rgba(0,0,0,0.04)}
-.btn-outline:hover{border-color:#cbd5e1;color:var(--heading)}
-.btn-primary{background:var(--accent);color:#fff;box-shadow:0 1px 3px rgba(83,58,253,0.25)}
-.btn-primary:hover{background:#4729e8;box-shadow:0 2px 6px rgba(83,58,253,0.3)}
+.btn:hover{border-color:#cbd5e1;color:var(--heading)}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:#4729e8}
 
 .canvas-preview{
-  background:#f8fafc;border:1px solid var(--border);border-radius:10px;
-  padding:28px;display:flex;flex-direction:column;gap:14px;
+  background:#f8fafc;border:1px solid var(--border);border-radius:8px;
+  padding:20px;display:flex;flex-direction:column;gap:8px;
 }
 .block{
-  background:#fff;border:1px solid var(--border);border-radius:8px;
-  border-left:3px solid var(--accent);padding:18px;
-  display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 2px rgba(0,0,0,0.04);
-  transition:all .15s;cursor:pointer;
+  background:#fff;border:1px solid var(--border);border-radius:6px;
+  border-left:3px solid var(--accent);padding:12px;
+  display:flex;flex-direction:column;gap:6px;transition:all .1s;cursor:pointer;
 }
-.block:hover{box-shadow:0 2px 8px rgba(50,50,93,0.08);border-color:#d0d9e6}
-.block-header{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px}
-.block-content{font-size:14px;display:flex;flex-direction:column;gap:6px}
-.block-row{display:flex;justify-content:space-between;padding:2px 0}
+.block:hover{border-color:#d0d9e6}
+.block-header{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.4px}
+.block-content{font-size:13px;display:flex;flex-direction:column;gap:4px}
+.block-row{display:flex;justify-content:space-between;padding:1px 0}
 .block-total{font-weight:600;color:var(--heading)}
-table.block-table{width:100%;border-collapse:collapse;font-size:13px}
-table.block-table th{text-align:left;color:#94a3b8;font-weight:500;padding:6px 0;border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:0.3px}
-table.block-table td{padding:8px 0;border-bottom:1px solid var(--border)}
+table.block-table{width:100%;border-collapse:collapse;font-size:12px}
+table.block-table th{text-align:left;color:#94a3b8;font-weight:500;padding:4px 0;border-bottom:1px solid var(--border);font-size:10px;text-transform:uppercase;letter-spacing:0.3px}
+table.block-table td{padding:5px 0;border-bottom:1px solid var(--border)}
 table.block-table td:last-child,table.block-table th:last-child{text-align:right}
-.block-divider{height:1px;background:var(--border);margin:4px 0}
 
 /* Recent */
-.recent-section{margin-top:32px}
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.section-title{font-size:17px;font-weight:600;color:var(--heading)}
-.doc-table{width:100%;border-collapse:collapse}
+.recent-section{margin-top:24px}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.section-title{font-size:15px;font-weight:600;color:var(--heading)}
+.table-wrap{overflow-x:auto}
+.doc-table{width:100%;border-collapse:collapse;min-width:500px}
 .doc-table th{
-  text-align:left;padding:10px 16px;font-size:11px;font-weight:600;color:#94a3b8;
-  text-transform:uppercase;letter-spacing:0.4px;border-bottom:2px solid var(--border);
+  text-align:left;padding:8px 12px;font-size:10px;font-weight:600;color:#94a3b8;
+  text-transform:uppercase;letter-spacing:0.3px;border-bottom:2px solid var(--border);
   background:#f8fafc;
 }
-.doc-table td{padding:14px 16px;font-size:14px;border-bottom:1px solid var(--border)}
+.doc-table td{padding:10px 12px;font-size:13px;border-bottom:1px solid var(--border);white-space:nowrap}
 .doc-table tr:hover td{background:#f8fafc}
 .status{
-  display:inline-flex;align-items:center;gap:6px;padding:3px 12px;border-radius:4px;
-  font-size:12px;font-weight:500;
+  display:inline-flex;align-items:center;gap:4px;padding:2px 10px;border-radius:4px;
+  font-size:11px;font-weight:500;
 }
 .status.completed{background:#e6f7ed;color:#0b8a3f}
 .status.pending{background:#fef5e6;color:#b87a00}
@@ -159,22 +157,57 @@ table.block-table td:last-child,table.block-table th:last-child{text-align:right
 
 /* Templates */
 .templates-panel{}
-.templates-title{font-size:14px;font-weight:600;color:var(--heading);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px}
+.templates-title{font-size:12px;font-weight:600;color:var(--heading);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:12px}
 .tpl-card{
-  background:#fff;border:1px solid var(--border);border-radius:8px;
-  padding:16px;margin-bottom:10px;cursor:pointer;transition:all .15s;
-  box-shadow:0 1px 2px rgba(0,0,0,0.04);
+  background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:12px;margin-bottom:8px;cursor:pointer;transition:all .1s;
 }
-.tpl-card:hover{border-color:#cbd5e1;box-shadow:0 2px 8px rgba(50,50,93,0.08)}
-.tpl-icon{
-  width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;
-  margin-bottom:10px;
-}
-.tpl-name{font-size:14px;font-weight:600;color:var(--heading);margin-bottom:2px}
-.tpl-meta{font-size:12px;color:#94a3b8}
+.tpl-card:hover{border-color:#cbd5e1}
+.tpl-name{font-size:13px;font-weight:600;color:var(--heading);margin-bottom:1px}
+.tpl-meta{font-size:11px;color:#94a3b8}
 .tpl-badge{
-  display:inline-flex;font-size:10px;padding:2px 8px;border-radius:4px;
-  background:rgba(83,58,253,0.08);color:var(--accent);margin-top:8px;font-weight:500;text-transform:uppercase;letter-spacing:0.3px;
+  display:inline-flex;font-size:10px;padding:1px 6px;border-radius:3px;
+  background:rgba(83,58,253,0.08);color:var(--accent);margin-top:6px;font-weight:500;text-transform:uppercase;letter-spacing:0.3px;
+}
+
+/* Mobile */
+@media(max-width:768px){
+  .sidebar{display:none}
+  .mobile-nav{
+    display:flex;position:fixed;bottom:0;left:0;right:0;
+    background:#fff;border-top:1px solid var(--border);
+    z-index:100;padding:4px 0;justify-content:space-around;
+  }
+  .mobile-nav .nav-item{
+    flex-direction:column;gap:2px;padding:6px 8px;font-size:10px;border-radius:4px;
+  }
+  .mobile-nav .nav-item svg{width:18px;height:18px}
+  .main{margin-left:0}
+  .header{padding:0 12px}
+  .hamburger{display:flex}
+  .search-box{width:140px}
+  .content{padding:12px 12px 70px}
+  .stats{grid-template-columns:1fr 1fr;gap:6px}
+  .stat-card{padding:10px}
+  .stat-value{font-size:18px}
+  .two-col{grid-template-columns:1fr}
+  .canvas-preview{padding:14px}
+  .block{padding:10px}
+  .templates-panel{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+  .templates-title{display:none}
+  .tpl-card{padding:8px;text-align:center;margin-bottom:0}
+  .tpl-meta{display:none}
+  .tpl-badge{display:none}
+}
+@media(max-width:480px){
+  .search-box{width:100px}
+  .search-box input{font-size:11px}
+  .icon-btn{width:28px;height:28px}
+  .avatar{width:26px;height:26px;font-size:11px}
+  .stat-value{font-size:16px}
+  .canvas-title{font-size:13px}
+  .canvas-actions .btn{padding:4px 10px;font-size:12px}
+  .templates-panel{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -211,10 +244,34 @@ table.block-table td:last-child,table.block-table th:last-child{text-align:right
   <div class="sidebar-footer">
     <a class="nav-item" href="#">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 4l4 4-4 4"/></svg>
-      Upgrade Plan
+      Upgrade
     </a>
   </div>
 </aside>
+
+<!-- Mobile nav -->
+<nav class="mobile-nav">
+  <a class="nav-item active" href="#">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="1.5" y="1.5" width="6" height="6" rx="1.2"/><rect x="10.5" y="1.5" width="6" height="6" rx="1.2"/><rect x="1.5" y="10.5" width="6" height="6" rx="1.2"/><rect x="10.5" y="10.5" width="6" height="6" rx="1.2"/></svg>
+    Home
+  </a>
+  <a class="nav-item" href="#">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 3h14v12H2z"/><path d="M5 6h8M5 9h8M5 12h5"/></svg>
+    Docs
+  </a>
+  <a class="nav-item" href="#">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 4h14v2H2zM2 8h14v2H2zM2 12h8v2H2z"/></svg>
+    Templates
+  </a>
+  <a class="nav-item" href="#">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="6" r="3"/><path d="M2 16c0-3.314 2.686-6 6-6s6 2.686 6 6"/></svg>
+    Clients
+  </a>
+  <a class="nav-item" href="#">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="9" r="6.5"/><path d="M9 5v5l3 2"/></svg>
+    Settings
+  </a>
+</nav>
 
 <!-- Main -->
 <div class="main">
@@ -222,16 +279,18 @@ table.block-table td:last-child,table.block-table th:last-child{text-align:right
   <!-- Header -->
   <header class="header">
     <div class="header-left">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="var(--body)" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="10" y="10" width="7" height="7" rx="1.5"/></svg>
+      <span class="hamburger">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 5h12M3 9h12M3 13h12"/></svg>
+      </span>
       Dashboard
     </div>
     <div class="header-right">
       <div class="search-box">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="5.5" cy="5.5" r="4"/><path d="M9.5 9.5l3 3"/></svg>
-        <input type="text" placeholder="Search documents...">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="5" cy="5" r="4"/><path d="M8 8l3 3"/></svg>
+        <input type="text" placeholder="Search...">
       </div>
       <div class="icon-btn">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a3 3 0 00-3 3v2.5l-1 3h8l-1-3V5a3 3 0 00-3-3zM6 12.5a2 2 0 004 0"/></svg>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1a2.5 2.5 0 00-2.5 2.5v1.5l-1 2.5h7l-1-2.5V3.5A2.5 2.5 0 007 1zM5.5 10a1.5 1.5 0 003 0"/></svg>
         <span class="notif-dot"></span>
       </div>
       <div class="avatar">JD</div>
@@ -244,25 +303,21 @@ table.block-table td:last-child,table.block-table th:last-child{text-align:right
     <!-- Stats -->
     <div class="stats">
       <div class="stat-card">
-        <div class="stat-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#533afd" stroke-width="1.7"><path d="M2 3h12v10H2z"/><path d="M4 5h8M4 8h8M4 11h5"/></svg></div>
         <div class="stat-label">Total Documents</div>
         <div class="stat-value">248</div>
         <div class="stat-sub">+12 this week</div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#533afd" stroke-width="1.7"><path d="M1 8h3l2 5 3-10 2 5h3"/></svg></div>
         <div class="stat-label">Revenue</div>
         <div class="stat-value">Rp 12.4M</div>
         <div class="stat-sub">+8% vs last month</div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#533afd" stroke-width="1.7"><path d="M2 4h12v2H2zM2 8h12v2H2zM2 12h7v2H2z"/></svg></div>
         <div class="stat-label">Active Templates</div>
         <div class="stat-value">8</div>
         <div class="stat-sub">3 recently used</div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#533afd" stroke-width="1.7"><path d="M11 2l3 3-7 7H4V9l7-7z"/></svg></div>
         <div class="stat-label">Pending Signatures</div>
         <div class="stat-value">3</div>
         <div class="stat-sub">2 require attention</div>
@@ -279,30 +334,24 @@ table.block-table td:last-child,table.block-table th:last-child{text-align:right
           <div class="canvas-header">
             <div class="canvas-title">Document Builder — INV-2024-089</div>
             <div class="canvas-actions">
-              <button class="btn btn-outline">Preview</button>
-              <button class="btn btn-primary">Send via WhatsApp</button>
+              <button class="btn">Preview</button>
+              <button class="btn btn-primary">Send</button>
             </div>
           </div>
           <div class="canvas-preview">
 
             <div class="block">
-              <div class="block-header">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="12" height="12" rx="2"/><path d="M3 4h8v2H3zM3 7h5"/></svg>
-                Header
-              </div>
+              <div class="block-header">Header</div>
               <div class="block-content">
                 <div style="display:flex;justify-content:space-between">
-                  <div><strong style="color:var(--heading)">PT Warung Digital Nusantara</strong><br><span style="font-size:12px;color:var(--body)">Jl. Merdeka No. 45, Jakarta Pusat</span></div>
-                  <div style="text-align:right;font-size:12px;color:var(--body)"><div>INV-2024-089</div><div>10 July 2024</div></div>
+                  <div><strong style="color:var(--heading)">PT Warung Digital Nusantara</strong><br><span style="font-size:11px;color:var(--body)">Jl. Merdeka No. 45, Jakarta Pusat</span></div>
+                  <div style="text-align:right;font-size:11px;color:var(--body)"><div>INV-2024-089</div><div>10 July 2024</div></div>
                 </div>
               </div>
             </div>
 
             <div class="block">
-              <div class="block-header">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 2h12v10H1z"/><path d="M1 5h12"/><path d="M4 2v10"/></svg>
-                Items Table
-              </div>
+              <div class="block-header">Items Table</div>
               <div class="block-content">
                 <table class="block-table">
                   <tr><th>Item</th><th>Qty</th><th>Price</th><th>Total</th></tr>
@@ -314,43 +363,21 @@ table.block-table td:last-child,table.block-table th:last-child{text-align:right
             </div>
 
             <div class="block">
-              <div class="block-header">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1v12M1 7h12"/></svg>
-                Tax
-              </div>
-              <div class="block-content"><div class="block-row"><span>PPN (11%)</span><span>Rp 962.500</span></div></div>
-            </div>
-
-            <div class="block">
-              <div class="block-header">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="4" cy="4" r="1.5"/><circle cx="10" cy="10" r="1.5"/><path d="M1 13L13 1"/></svg>
-                Discount
-              </div>
-              <div class="block-content"><div class="block-row"><span>Early Payment Discount (5%)</span><span style="color:#0b8a3f">-Rp 437.500</span></div></div>
-            </div>
-
-            <div class="block">
-              <div class="block-header">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10v5H2z"/><path d="M9 4l2 3H3l2-3h4z"/><circle cx="7" cy="10" r="1"/></svg>
-                Payment Terms
-              </div>
+              <div class="block-header">Tax & Discount</div>
               <div class="block-content">
-                <div class="block-row"><span>Due Date</span><span>10 August 2024</span></div>
-                <div class="block-row"><span>Bank Transfer — BCA</span><span>123-456-7890</span></div>
+                <div class="block-row"><span>PPN (11%)</span><span>Rp 962.500</span></div>
+                <div class="block-row"><span>Early Payment Discount (5%)</span><span style="color:#0b8a3f">-Rp 437.500</span></div>
               </div>
             </div>
 
             <div class="block">
-              <div class="block-header">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 13l4-4 2 2 3-6 3 8"/></svg>
-                Footer
-              </div>
+              <div class="block-header">Total</div>
               <div class="block-content">
                 <div class="block-total" style="display:flex;justify-content:space-between">
-                  <span style="font-size:16px;color:var(--heading)">Total Due</span>
-                  <span style="font-size:18px;color:var(--accent)">Rp 9.275.000</span>
+                  <span style="font-size:14px;color:var(--heading)">Total Due</span>
+                  <span style="font-size:16px;color:var(--accent)">Rp 9.275.000</span>
                 </div>
-                <div style="font-size:11px;color:var(--body);text-align:center;margin-top:8px">Terima kasih atas kepercayaan Anda</div>
+                <div style="font-size:10px;color:var(--body);text-align:center;margin-top:4px">Terima kasih atas kepercayaan Anda</div>
               </div>
             </div>
 
@@ -361,8 +388,9 @@ table.block-table td:last-child,table.block-table th:last-child{text-align:right
         <div class="recent-section">
           <div class="section-header">
             <div class="section-title">Recent Documents</div>
-            <button class="btn btn-outline" style="padding:6px 14px;font-size:13px">View All</button>
+            <button class="btn" style="padding:4px 10px;font-size:12px">View All</button>
           </div>
+          <div class="table-wrap">
           <table class="doc-table">
             <thead><tr><th>Document</th><th>Client</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
             <tbody>
@@ -373,6 +401,7 @@ table.block-table td:last-child,table.block-table th:last-child{text-align:right
               <tr><td class="doc-name">CONT-2024-005</td><td>Traveloka Partner</td><td>Rp 22.000.000</td><td><span class="status pending">Pending</span></td><td>02 Jul 2024</td></tr>
             </tbody>
           </table>
+          </div>
         </div>
       </div>
 
@@ -380,25 +409,21 @@ table.block-table td:last-child,table.block-table th:last-child{text-align:right
       <div class="templates-panel">
         <div class="templates-title">Quick Templates</div>
         <div class="tpl-card">
-          <div class="tpl-icon" style="background:rgba(83,58,253,0.1)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#533afd" stroke-width="1.7"><path d="M2 4h12v2H2zM2 8h12v2H2zM2 12h6v2H2z"/></svg></div>
           <div class="tpl-name">Standard Invoice</div>
           <div class="tpl-meta">Used 24 times</div>
           <div class="tpl-badge">Last used yesterday</div>
         </div>
         <div class="tpl-card">
-          <div class="tpl-icon" style="background:rgba(83,58,253,0.1)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#533afd" stroke-width="1.7"><path d="M4 8h8M8 4v8"/></svg></div>
           <div class="tpl-name">Service Proposal</div>
           <div class="tpl-meta">Used 18 times</div>
           <div class="tpl-badge">Popular</div>
         </div>
         <div class="tpl-card">
-          <div class="tpl-icon" style="background:rgba(83,58,253,0.1)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#533afd" stroke-width="1.7"><path d="M11 2l3 3-7 7H4V9l7-7z"/></svg></div>
           <div class="tpl-name">Contract Agreement</div>
           <div class="tpl-meta">Used 12 times</div>
           <div class="tpl-badge">New</div>
         </div>
         <div class="tpl-card">
-          <div class="tpl-icon" style="background:rgba(83,58,253,0.1)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#533afd" stroke-width="1.7"><path d="M1 8h3l2 5 3-10 2 5h3"/></svg></div>
           <div class="tpl-name">Quote Estimator</div>
           <div class="tpl-meta">Used 9 times</div>
           <div class="tpl-badge">Last used 3d ago</div>
